@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Confirm.Pages.ConfirmTabbedPage"
+             xmlns:pages="clr-namespace:Confirm.Pages;assembly=Confirm.Pages"
+             Title="Confirm"
+            BackgroundColor="#99ccff">
+    <!--Pages can be added as references or inline-->
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Name_ToolbarItemGPSStatus" Name="Menu_Sync" Order="Primary" Text="Gps Status" Priority="1" Icon="gpsconnected.png" Activated="OnGPSButtonClicked"/>
+        <ToolbarItem  Name="Menu_Sync" Order="Primary" Text="Sync" Priority="2" Icon="sync.png" Activated="OnSyncButtonClicked"/>
+        <ToolbarItem Name="Menu_logout" Order="Primary" Text="Logout" Priority="3" Icon="logout.png" Activated="OnLogOutClicked"/>
+    </ContentPage.ToolbarItems>
+
+    <!--Create Confirm Record Content page starting-->
+
+    <ContentPage Title="New Record">
+        <ContentPage.Content>
+
+            
+            <ScrollView>
+                <StackLayout
+            VerticalOptions="StartAndExpand"
+            Margin="10,10,10,10">
+
+                   
+
+                    <Label TextColor="White"
+                   Text="Capture an Image"
+                   FontSize="12"
+                   HorizontalOptions="Center"
+                   x:Name="Name_LabelCaptureImage"/>
+                    <!--Camera Components Start Point-->
+                    <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="Center">
+
+                        <Image Source="img_camera.jpg">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnCaptureButtonClicked"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Image Source="imageplaceholder.png"
+                               x:Name="Name_ImagePlaceHolder"
+                               IsVisible="True"
+                               HeightRequest="73">
+                        </Image>
+
+                        <!---->
+
+                        <Label Text="Image not captured"
+                               IsVisible="False"
+                               x:Name="Name_Label_NoImages"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        
+                        <Image x:Name="previewImage"
+                   HeightRequest="73"
+                   IsVisible="False"
+                   HorizontalOptions="Start"/>
+
+                    </StackLayout>
+                    <!--Camera Campaigns End Point-->
+
+                        <!--Active Campaigns Start Point-->
+
+                        <!--<Picker x:Name="Name_PickerCampaign" 
+                    Title="Click to select a Campaign" 
+                    IsEnabled="True"
+                    SelectedIndexChanged="OnCampaignPickerIndexChanged"/>-->
+                        <Label x:Name="Name_Label_CampaignName"
+                               FontSize="18"
+                               HorizontalOptions="CenterAndExpand"/>
+
+
+                        <!--Active Campaign End Point-->
+
+                        <!--Brands Starting Point-->
+
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label TextColor="#e1f0ff"
+                   FontSize = "20" 
+                   Text="Select Brands"/>
+                            <Label TextColor="Red"
+                   FontSize = "15" 
+                   Text="*"/>
+                            <Image Source="alert.png"
+                       IsVisible="False"
+                       x:Name="Name_ImageAlertBrands"/>
+                        </StackLayout>
+
+                        <Label TextColor="White"
+                   Text="Please select at least one Brand"
+                   FontSize="12"
+                   Margin="20,0,0,0"
+                   x:Name="Name_LabelBrand"/>
+
+                        <StackLayout Orientation="Horizontal" 
+                                     HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center"
+                         Margin="20,0,0,0">
+
+                            <Label Text="Brand1"
+                       VerticalOptions="Center" 
+                       FontSize="18"
+                       x:Name="Name_LabelBrand1"/>
+
+                            <Switch HorizontalOptions="LayoutOptions.EndAndExpand" 
+                        VerticalOptions="LayoutOptions.EndAndExpand"
+                        Toggled="OnSwitchToggledBrand1" 
+                        x:Name="Name_SwitchBrand1"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" 
+                         VerticalOptions="FillAndExpand"
+                         Margin="20,0,0,0">
+
+                            <Label Text="Brand2" 
+                       VerticalOptions="Center"
+                       FontSize="18"
+                       x:Name="Name_LabelBrand2"/>
+
+                            <Switch HorizontalOptions="LayoutOptions.EndAndExpand" 
+                        VerticalOptions="LayoutOptions.EndAndExpand"
+                        Toggled="OnSwitchToggledBrand2" 
+                        x:Name="Name_SwitchBrand2"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="FillAndExpand"
+                         Margin="20,0,0,0">
+
+                            <Label Text="Brand3"
+                       VerticalOptions="Center" FontSize="18" 
+                       x:Name="Name_LabelBrand3"/>
+
+                            <Switch HorizontalOptions="EndAndExpand"
+                        Toggled="OnSwitchToggledBrand3" 
+                        x:Name="Name_SwitchBrand3"/>
+                        </StackLayout>
+
+                        <!--Brands End Point-->
+                        
+
+                        <!--Store Information Starting Point-->
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label TextColor="#e1f0ff"
+                   FontSize = "20" 
+                   Text="Store information"/>
+                            <Label TextColor="Red"
+                   FontSize = "15" 
+                   Text="*"/>
+                            <Image Source="alert.png"
+                       IsVisible="False"
+                       x:Name="Name_ImageAlertStoreInfo"/>
+                        </StackLayout>
+
+                        <Label TextColor="White"
+                   Text="Please enter Store information to proceed"
+                   FontSize="12"
+                   Margin="20,0,0,0"
+                   x:Name="Name_LabelStoreInfo"
+                     IsVisible="False"/>
+
+                        <Entry x:Name="Name_EntryStoreInfo"
+                   Placeholder="Enter Store information"/>
+
+                        <!--Store Information End Point-->
+
+
+                        <!--Notes Starting Point-->
+
+                        <Label TextColor="#e1f0ff"
+                   FontSize = "20"
+                   Text="Notes" />
+
+                        <Entry x:Name="Name_EntryNote"
+                   Placeholder="Enter Notes"
+                   />
+                        <!--Notes End Point-->
+
+                        <Button Text="Submit"
+                    Clicked="OnSubmitButtonClicked"
+                    BackgroundColor="#fcff1a"
+                    TextColor="Black"/>
+                    </StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+    </ContentPage>
+
+    <!--Create Confirm Record Content page ending-->
+
+
+    <ContentPage Title="All Records">
+        <StackLayout>
+            <ListView x:Name="Name_ListView"
+                      RowHeight="70">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical"
+                                         Margin="10,10,10,10">
+                                <Label Text="{Binding CreatedDate}" 
+                                                FontSize="18"/>
+                                <Label Text="{Binding StoreInformation}"
+                                                FontSize="18"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage>
+</TabbedPage>

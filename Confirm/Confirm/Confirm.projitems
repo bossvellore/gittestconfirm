@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>65498107-c275-415c-bcf7-dd3db6e4f0bc</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Confirm</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)AzureCloudManager\AzureCloudManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AzureCloudManager\ConfirmTableManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CircularProgressControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dependency\IGetExternalStoragePath.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dependency\IGPSChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Brand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Campaign.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ConfirmRecord.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ConfirmTabbedPage.xaml.cs">
+      <DependentUpon>ConfirmTabbedPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\InputValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ConfirmTabbedPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
