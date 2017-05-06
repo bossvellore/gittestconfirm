@@ -97,6 +97,8 @@
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <None Include="packages.config" />
+    <Compile Include="Dependency\GetExternalPath.cs" />
+    <Compile Include="Dependency\GpsEnable.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -115,6 +117,10 @@
     <BundleResource Include="Resources\Icon-Small%402x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\alert.png" />
+    <BundleResource Include="Resources\img_camera.jpg" />
+    <BundleResource Include="Resources\logout.png" />
+    <BundleResource Include="Resources\sync.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -230,18 +236,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\alert.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\logout.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\img_camera.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\sync.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\imageplaceholder.png" />
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +243,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\gpsdisconnected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dependency\" />
   </ItemGroup>
   <Import Project="..\Confirm\Confirm.projitems" Label="Shared" Condition="Exists('..\Confirm\Confirm.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
