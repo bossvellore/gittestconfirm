@@ -18,13 +18,26 @@
     <ContentPage Title="New Record">
         <ContentPage.Content>
 
-            
+
             <ScrollView>
-                <StackLayout
-            VerticalOptions="StartAndExpand"
-            Margin="10,10,10,10">
+
+                <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+
 
                    
+
+                    
+
+                    <StackLayout
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All"
+                         Margin="10,10,10,10">
+                    
+                    
+                    
+
+
 
                     <Label TextColor="White"
                    Text="Capture an Image"
@@ -190,7 +203,26 @@
                     Clicked="OnSubmitButtonClicked"
                     BackgroundColor="#fcff1a"
                     TextColor="Black"/>
+                        
+                        
                     </StackLayout>
+
+                        <StackLayout
+                        BackgroundColor="#BCBCBC"
+                        Padding="10,10,10,10"
+                        Opacity="0.7"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                            x:Name="Name_ProgressMessage"
+                            IsVisible="False">
+                            <ActivityIndicator IsRunning="True" Color="White"/>
+
+                            <Label Text="Getting Coordinates..."
+                                   FontSize="20"/>
+                        </StackLayout>
+                </AbsoluteLayout>
             </ScrollView>
         </ContentPage.Content>
     </ContentPage>
