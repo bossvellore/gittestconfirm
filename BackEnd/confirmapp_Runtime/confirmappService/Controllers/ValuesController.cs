@@ -7,7 +7,7 @@ namespace confirmappService.Controllers
 {
     // Use the MobileAppController attribute for each ApiController you want to use  
     // from your mobile clients 
-    [MobileAppController]
+    [MobileAppController, AllowAnonymous]
     public class ValuesController : ApiController
     {
         // GET api/values

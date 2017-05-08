@@ -6,9 +6,11 @@ using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
 using confirmappService.DataObjects;
 using confirmappService.Models;
+using Microsoft.Azure.Mobile.Server.Config;
 
 namespace confirmappService.Controllers
 {
+    [MobileAppController, AllowAnonymous]
     public class TodoItemController : TableController<TodoItem>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
