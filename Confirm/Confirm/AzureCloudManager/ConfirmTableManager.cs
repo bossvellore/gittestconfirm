@@ -63,6 +63,14 @@ namespace Confirm.AzureCloudManager
             await brandTable.PullAsync("allBrands", brandTable.CreateQuery());
             await campaignTable.PullAsync("allCampaigns", campaignTable.CreateQuery());
         }
+
+        public async Task SyncBrandCampaignWithAzureDB()
+        {
+            Debug.WriteLine("ConfrimTableManager : Sync Started");
+            await client.SyncContext.PushAsync();
+            await brandTable.PullAsync("allBrands", brandTable.CreateQuery());
+            await campaignTable.PullAsync("allCampaigns", campaignTable.CreateQuery());
+        }
         public async Task<List<ConfirmRecord>> GetAllLocalConfirmRecords()
         {
             List<ConfirmRecord> allConfirmRecords = await confirmTable.ToListAsync();
@@ -105,8 +113,7 @@ namespace Confirm.AzureCloudManager
         }
         public async Task SyncFilesAsync()
         {
-            try
-            {
+            
                 //Uploading local images
                 List<ConfirmRecord> imageUploadPendingrecords = await GetPendingImages();
                 Debug.WriteLine("AzureStorageManager.SyncFilesAsync : " + imageUploadPendingrecords.Count);
@@ -114,50 +121,39 @@ namespace Confirm.AzureCloudManager
                 {
                     Debug.WriteLine("AzureStorageManager.SyncFilesAsync : " + "Starting Upload");
                     FileStream fileStream = null;
-                    try
-                    {
+                    
                         
-                        var externalStorageDependecy = DependencyService.Get<IGetExternalStoragePath>();
-                        string imagesFolderPath = externalStorageDependecy.GetExternalStoragePath()+ Constants.ImageStorgePath;
-                       
-                        fileStream = File.OpenRead(imagesFolderPath + imageUploadPendingrecord.ImageName);
+                   var externalStorageDependecy = DependencyService.Get<IGetExternalStoragePath>();
+                    string imagesFolderPath = externalStorageDependecy.GetExternalStoragePath()+ Constants.ImageStorgePath;
+
+                try
+                {
+                    fileStream = File.OpenRead(imagesFolderPath + imageUploadPendingrecord.ImageName);
+                         await AzureStorageManager.UploadFileAsync(Constants.ContainerName, fileStream, imageUploadPendingrecord.ImageName)
+                     .ContinueWith(async (T) =>
+                     {
+
+                         if (T.Status == TaskStatus.RanToCompletion)
+                         {
+                             imageUploadPendingrecord.IsUploaded = true;
+                             await UpsertRecord(imageUploadPendingrecord);
+                             Debug.WriteLine("Image Uploaded successfully : " + imageUploadPendingrecord.ImageName);
+                         }
+                         else
+                             Debug.WriteLine("Image Uploaded failed : " + imageUploadPendingrecord.ImageName);
+                         Debug.WriteLine("UploadResult : " + " IsCanceled : " + T.IsCanceled);
+                         Debug.WriteLine("UploadResult : " + " IsCompleted : " + T.IsCompleted);
+                         Debug.WriteLine("UploadResult : " + " IsFaulted : " + T.IsFaulted);
+                         Debug.WriteLine("UploadResult : " + " Result : " + T.Result);
+                         Debug.WriteLine("UploadResult : " + " Status : " + T.Status);
+                     });
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine(e);
+                        Debug.WriteLine("Exception : " + e.ToString());
                     }
-
-                    Debug.WriteLine("Length of filestream : " + fileStream.Length);
-                    await AzureStorageManager.UploadFileAsync(Constants.ContainerName, fileStream, imageUploadPendingrecord.ImageName)
-                      .ContinueWith(async (T) =>
-                      {
-
-                          if (T.Status == TaskStatus.RanToCompletion)
-                          {
-                              imageUploadPendingrecord.IsUploaded = true;
-                              await UpsertRecord(imageUploadPendingrecord);
-                              Debug.WriteLine("Image Uploaded successfully : " + imageUploadPendingrecord.ImageName);
-                          }
-                          else
-                              Debug.WriteLine("Image Uploaded failed : " + imageUploadPendingrecord.ImageName);
-                          Debug.WriteLine("UploadResult : " + " IsCanceled : " + T.IsCanceled);
-                          Debug.WriteLine("UploadResult : " + " IsCompleted : " + T.IsCompleted);
-                          Debug.WriteLine("UploadResult : " + " IsFaulted : " + T.IsFaulted);
-                          Debug.WriteLine("UploadResult : " + " Result : " + T.Result);
-                          Debug.WriteLine("UploadResult : " + " Status : " + T.Status);
-                      });
-                }
+            }
                 await SyncLocalDBWithAzureDB();
-
-            }
-            catch (Exception ex)
-            {
-                var a = ex;
-                Debug.WriteLine("ConfirmTableManager : " + ex);
-            }
-
         }
-
-
     }
 }

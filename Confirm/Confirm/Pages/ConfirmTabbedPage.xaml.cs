@@ -169,8 +169,8 @@ namespace Confirm.Pages
                         }
                     }
                     else if(locator.IsGeolocationEnabled)
-                    { 
-
+                    {
+                        Name_ProgressMessage.IsVisible = true;
                     locator.DesiredAccuracy = 50;
 
                     var position = await locator.GetPositionAsync(100000);
@@ -181,8 +181,8 @@ namespace Confirm.Pages
 
                     confirmRecord.Latitude = lat;
                     confirmRecord.Longitude = lng;
-
-                    await _tableManager.UpsertRecord(confirmRecord);
+                        Name_ProgressMessage.IsVisible = false;
+                        await _tableManager.UpsertRecord(confirmRecord);
                     await DisplayAlert("Success", "Your response has been saved successfully", "Ok, create new response");
                     ResetUI();
                     }
