@@ -12,7 +12,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-
+using System.Net.Http;
 
 namespace Confirm.AzureCloudManager
 {
@@ -155,5 +155,12 @@ namespace Confirm.AzureCloudManager
             }
                 await SyncLocalDBWithAzureDB();
         }
+		public async void CustomLogin()
+		{
+			Dictionary<string, string> param = new Dictionary<string, string>();
+			param.Add("userName", "admin");
+			param.Add("password", "admin");
+			await client.InvokeApiAsync("api/authentication/login", HttpMethod.Post, param);
+		}
     }
 }
